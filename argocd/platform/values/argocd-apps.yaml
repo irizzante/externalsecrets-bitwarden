@@ -34,3 +34,24 @@ projects:
   namespaceResourceWhitelist:
     - group: "*"
       kind: "*"      
+
+applications:
+
+- name: addons
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: argocd
+  source:
+    path: argocd/platform/addons
+    repoURL: 'https://github.com/irizzante/externalsecrets-bitwarden.git'
+    targetRevision: HEAD
+  project: platform
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+      - CreateNamespace=true
