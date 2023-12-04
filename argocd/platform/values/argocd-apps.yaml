@@ -37,6 +37,31 @@ projects:
 
 applications:
 
+- name: argocd-apps
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: argocd
+  sources:
+  - chart: argocd-apps
+    helm:
+      valueFiles:
+      - $values/argocd/platform/values/argocd-apps.yaml
+    repoURL: https://argoproj.github.io/argo-helm
+    targetRevision: 1.4.1
+  - ref: values
+    repoURL: https://github.com/irizzante/externalsecrets-bitwarden.git
+    targetRevision: HEAD
+  project: platform
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+      - CreateNamespace=true
+
 - name: addons
   finalizers:
     - resources-finalizer.argocd.argoproj.io
