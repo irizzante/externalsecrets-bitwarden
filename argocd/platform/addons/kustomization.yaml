@@ -3,6 +3,3 @@ kind: Kustomization
 
 resources:
 - https://github.com/irizzante/cluster-addons//argocd/base?ref=main
-
-components:
-- https://github.com/irizzante/cluster-addons//argocd/components/externalsecrets-bitwarden/cluster-secret-store?ref=main
