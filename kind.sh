@@ -65,9 +65,9 @@ kubectl create ns bitwarden
 cat << EOF | kubectl apply -f-
 apiVersion: v1
 stringData:
+  BW_CLIENTID: "$bitwardenClientId"
+  BW_CLIENTSECRET: "$bitwardenClientSecret"
   BW_HOST: "$bitwardenHost"
-  BW_USERNAME: "$bitwadenUser"
-  BW_PASSWORD: "$bitwardenPassword"
 kind: Secret
 metadata:
   name: bitwarden-cli
