@@ -68,6 +68,7 @@ stringData:
   BW_CLIENTID: "$bitwardenClientId"
   BW_CLIENTSECRET: "$bitwardenClientSecret"
   BW_HOST: "$bitwardenHost"
+  BW_PASSWORD: "$bitwardenPassword"
 kind: Secret
 metadata:
   name: bitwarden-cli
