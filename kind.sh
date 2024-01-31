@@ -82,4 +82,4 @@ helm upgrade --install -n argocd argocd-apps -f argocd/platform/values/argocd-ap
 
 kubectl create ns crossplane-system
 
-kubectl create secret generic aws-secret -n crossplane-system --from-file=creds=./aws-credentials.txt
+#kubectl create secret generic aws-secret -n crossplane-system --from-file=creds=./aws-credentials.txt
