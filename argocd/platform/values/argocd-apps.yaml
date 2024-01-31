@@ -45,22 +45,3 @@ applications:
       allowEmpty: true
     syncOptions:
       - CreateNamespace=true
-#
-#- name: external-secrets-manifests
-#  finalizers:
-#    - resources-finalizer.argocd.argoproj.io
-#  destination:
-#    server: 'https://kubernetes.default.svc'
-#  source:
-#    path: argocd/platform/addons/external-secrets
-#    repoURL: 'https://github.com/irizzante/externalsecrets-bitwarden.git'
-#    targetRevision: HEAD
-#  project: platform
-#  syncPolicy:
-#    automated:
-#      prune: true
-#      selfHeal: true
-#      allowEmpty: true
-#    syncOptions:
-#      - CreateNamespace=true
-#
