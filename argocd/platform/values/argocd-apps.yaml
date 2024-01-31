@@ -1,39 +1,4 @@
 projects:
-- name: platform
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-  description: Platform team project
-  sourceRepos:
-    - "*"
-  destinations:
-    - namespace: "*"
-      server: "*"
-  clusterResourceWhitelist:
-    - group: "*"
-      kind: "*"
-  namespaceResourceWhitelist:
-    - group: "*"
-      kind: "*"
-
-- name: apps
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-  description: App team project
-  sourceRepos:
-    - "https://production.eng.it/gitlab/dirseresl/aspi/"
-  destinations:
-    - namespace: "!argocd"
-      server: "*"
-    - namespace: "!kube-system"
-      server: "*"
-  clusterResourceBlacklist:
-    - group: "*"
-      kind: "*"
-  namespaceResourceWhitelist:
-    - group: "*"
-      kind: "*"      
 
 applications:
 
