@@ -18,7 +18,7 @@ projects:
     namespace: argocd
     description: App team project
     sourceRepos:
-      - "https://production.eng.it/gitlab/dirseresl/aspi/"
+      - "*"
     destinations:
       - namespace: "!argocd"
         server: "*"
