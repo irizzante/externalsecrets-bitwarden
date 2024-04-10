@@ -1,82 +1,69 @@
 projects:
-- name: platform
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-  description: Platform team project
-  sourceRepos:
-    - "*"
-  destinations:
-    - namespace: "*"
-      server: "*"
-  clusterResourceWhitelist:
-    - group: "*"
-      kind: "*"
-  namespaceResourceWhitelist:
-    - group: "*"
-      kind: "*"
+  platform: 
+    namespace: argocd
+    description: Platform team project
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: "*"
+        server: "*"
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"
+    namespaceResourceWhitelist:
+      - group: "*"
+        kind: "*"
 
-- name: apps
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-  description: App team project
-  sourceRepos:
-    - "https://production.eng.it/gitlab/dirseresl/aspi/"
-  destinations:
-    - namespace: "!argocd"
-      server: "*"
-    - namespace: "!kube-system"
-      server: "*"
-  clusterResourceBlacklist:
-    - group: "*"
-      kind: "*"
-  namespaceResourceWhitelist:
-    - group: "*"
-      kind: "*"      
+  apps:
+    namespace: argocd
+    description: App team project
+    sourceRepos:
+      - "https://production.eng.it/gitlab/dirseresl/aspi/"
+    destinations:
+      - namespace: "!argocd"
+        server: "*"
+      - namespace: "!kube-system"
+        server: "*"
+    clusterResourceBlacklist:
+      - group: "*"
+        kind: "*"
+    namespaceResourceWhitelist:
+      - group: "*"
+        kind: "*"  
 
 applications:
+  argocd-apps:
+    project: platform
+    source:
+      repoURL: https://argoproj.github.io/argo-helm
+      path: argocd-apps
+      targetRevision: 1.4.1
+    destination:
+      server: 'https://kubernetes.default.svc'
+      namespace: argocd
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+        allowEmpty: true
+      syncOptions:
+        - CreateNamespace=true
 
-- name: argocd-apps
-  finalizers:
+  addons: 
+    finalizers:
     - resources-finalizer.argocd.argoproj.io
-  destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: argocd
-  sources:
-  - chart: argocd-apps
-    helm:
-      valueFiles:
-      - $values/argocd/platform/values/argocd-apps.yaml
-    repoURL: https://argoproj.github.io/argo-helm
-    targetRevision: 1.4.1
-  - ref: values
-    repoURL: https://github.com/irizzante/externalsecrets-bitwarden.git
-    targetRevision: HEAD
-  project: platform
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-      allowEmpty: true
-    syncOptions:
-      - CreateNamespace=true
-
-- name: addons
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-  destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: argocd
-  source:
-    path: argocd/platform/addons
-    repoURL: 'https://github.com/irizzante/externalsecrets-bitwarden.git'
-    targetRevision: HEAD
-  project: platform
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-      allowEmpty: true
-    syncOptions:
-      - CreateNamespace=true
+    destination:
+      server: 'https://kubernetes.default.svc'
+      namespace: argocd
+    source:
+      path: argocd/platform/addons
+      repoURL: 'https://github.com/irizzante/externalsecrets-bitwarden.git'
+      targetRevision: HEAD
+    project: platform
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+        allowEmpty: true
+      syncOptions:
+        - CreateNamespace=true
