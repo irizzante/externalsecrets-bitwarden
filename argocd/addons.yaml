@@ -3,7 +3,7 @@ key:
   - name: argocd
     project: default
     namespace: argocd
-    destinationName: default
+    destinationName: in-cluster
     chart: argo-cd
     repoURL: https://argoproj.github.io/argo-helm
     targetRevision: 6.7.10
@@ -11,7 +11,7 @@ key:
   - name: external-secrets
     project: default
     namespace: external-secrets
-    destinationName: default
+    destinationName: in-cluster
     chart: external-secrets
     repoURL: https://external-secrets.github.io/kubernetes-external-secrets
     targetRevision: 0.9.14
@@ -19,7 +19,7 @@ key:
   - name: nginx
     project: default
     namespace: nginx
-    destinationName: default
+    destinationName: in-cluster
     chart: ingress-nginx
     repoURL: https://kubernetes.github.io/ingress-nginx
     targetRevision: 4.10.0
