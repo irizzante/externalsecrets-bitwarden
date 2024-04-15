@@ -1,0 +1,26 @@
+key:
+  components:
+  - name: argocd
+    project: default
+    namespace: argocd
+    destinationName: default
+    chart: argo-cd
+    repoURL: https://argoproj.github.io/argo-helm
+    targetRevision: 6.7.10
+    valueFiles: '$addons/argocd/base/values/argocd.yaml'
+  - name: external-secrets
+    project: default
+    namespace: external-secrets
+    destinationName: default
+    chart: external-secrets
+    repoURL: https://external-secrets.github.io/kubernetes-external-secrets
+    targetRevision: 0.9.14
+    valueFiles: '$addons/argocd/base/values/external-secrets.yaml'
+  - name: nginx
+    project: default
+    namespace: nginx
+    destinationName: default
+    chart: ingress-nginx
+    repoURL: https://kubernetes.github.io/ingress-nginx
+    targetRevision: 4.10.0
+    valueFiles: '$addons/argocd/base/values/nginx.yaml'

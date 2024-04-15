@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: addons
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - matrix:
+      generators:
+      - git:
+          repoURL: https://github.com/irizzante/externalsecrets-bitwarden.git
+          revision: HEAD
+          files:
+          - path: argocd/addons.yaml
+      - list:
+          elementsYaml: "{{ .key.components | toJson }}"
+  template:
+    metadata:
+      name: '{{.name}}'
+    spec:
+      project: '{{.project}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: true
+        syncOptions:
+        - CreateNamespace=true   
+        - ServerSideApply=true     
+      sources:
+        - repoURL: https://github.com/irizzante/externalsecrets-bitwarden.git
+          targetRevision: master
+          ref: values
+        - repoURL: https://github.com/irizzante/cluster-addons.git
+          targetRevision: master
+          ref: addons
+        - chart: '{{.chart}}'
+          repoURL: '{{.repoUrl}}'
+          targetRevision: '{{.version}}'
+          helm:
+            valueFiles: '{{.valueFiles}}'
+      destination:
+        name: '{{.destinationName}}'
+        namespace: '{{.namespace}}'

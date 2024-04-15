@@ -1,0 +1,9 @@
+key:
+  components:
+  - name: argocd-manifests
+    project: default
+    namespace: argocd
+    destinationName: default
+    repoURL: https://github.com/irizzante/externalsecrets-bitwarden.git
+    targetRevision: HEAD
+    path: argocd
