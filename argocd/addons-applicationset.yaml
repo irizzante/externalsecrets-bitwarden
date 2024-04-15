@@ -37,7 +37,7 @@ spec:
           targetRevision: master
           ref: addons
         - chart: '{{.chart}}'
-          repoURL: '{{.repoUrl}}'
+          repoURL: '{{.repoURL}}'
           targetRevision: '{{.version}}'
           helm:
             valueFiles: '{{.valueFiles}}'
