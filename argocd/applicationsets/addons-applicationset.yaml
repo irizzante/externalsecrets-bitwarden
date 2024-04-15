@@ -40,7 +40,8 @@ spec:
           repoURL: '{{.repoURL}}'
           targetRevision: '{{.version}}'
           helm:
-            valueFiles: '{{.valueFiles}}'
+            valueFiles: 
+            - '{{.valueFiles}}'
       destination:
         name: '{{.destinationName}}'
         namespace: '{{.namespace}}'
