@@ -31,10 +31,10 @@ spec:
         - ServerSideApply=true     
       sources:
         - repoURL: https://github.com/irizzante/externalsecrets-bitwarden.git
-          targetRevision: master
+          targetRevision: HEAD
           ref: values
         - repoURL: https://github.com/irizzante/cluster-addons.git
-          targetRevision: master
+          targetRevision: HEAD
           ref: addons
         - chart: '{{.chart}}'
           repoURL: '{{.repoURL}}'
