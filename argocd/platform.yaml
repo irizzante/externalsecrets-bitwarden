@@ -6,4 +6,4 @@ key:
     destinationName: in-cluster
     repoURL: https://github.com/irizzante/externalsecrets-bitwarden.git
     targetRevision: HEAD
-    path: argocd/applicationsets
+    folder: argocd/applicationsets
