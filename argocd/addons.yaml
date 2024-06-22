@@ -8,6 +8,7 @@ key:
     repoURL: https://argoproj.github.io/argo-helm
     targetRevision: 6.7.10
     valueFiles: '$addons/argocd/base/values/argocd.yaml'
+    values: ""
   - name: external-secrets
     project: default
     namespace: external-secrets
@@ -16,6 +17,7 @@ key:
     repoURL: https://charts.external-secrets.io
     targetRevision: 0.9.14
     valueFiles: '$addons/argocd/base/values/external-secrets.yaml'
+    values: ""
   - name: nginx
     project: default
     namespace: nginx
@@ -24,3 +26,23 @@ key:
     repoURL: https://kubernetes.github.io/ingress-nginx
     targetRevision: 4.10.0
     valueFiles: '$addons/argocd/base/values/nginx.yaml'
+    values: |
+      test: true
+      controller:
+        hostPort:
+          enabled: '{{.metadata.annotations.hostport_enabled}}'
+        service:
+          type: ClusterIP
+        tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"
+        extraArgs:
+          enable-ssl-passthrough: ""
+        
+        admissionWebhooks:
+          patch:
+            tolerations:
+            - key: "node-role.kubernetes.io/control-plane"
+              operator: "Exists"
+              effect: "NoSchedule"
